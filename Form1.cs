@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Calculadora.Op;
 
@@ -14,110 +9,132 @@ namespace Calculadora
 {
     public partial class Calculadora : Form
     {
-        private string entrada = "";
-        private string operacao = "";
-
-        private List<decimal> numeros = new();
         public Calculadora()
         {
             InitializeComponent();
             Campo.ReadOnly = true;
             Campo.BackColor = Color.White;
-            label1.BackColor = Color.White;
+            CampoCima.ReadOnly = true;
+            CampoCima.BackColor = Color.White;
         }
 
-        private void Campo_TextChanged(object sender, EventArgs e)
-        {
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
+        private string operador;
+        private readonly List<decimal> numeros = new();
 
-        private void button12_Click(object sender, EventArgs e)//+
+
+        private void Soma(object sender, EventArgs e)
         {
-            if (Campo.Text != "")
+            if (Campo.Text != "" && CampoCima.Text != "")
             {
                 numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                label1.Text = "+";
-                operacao = "soma";
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
                 Campo.Text = "";
             }
-            else { MessageBox.Show("Digite um valor para efetuar a operação"); }
-        }
-
-        private void button11_Click(object sender, EventArgs e)//-
-        {
+            operador = "+";
             if (Campo.Text != "")
             {
                 numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                label1.Text = "-";
-                operacao = "sub";
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
                 Campo.Text = "";
             }
-            else { MessageBox.Show("Digite um valor para efetuar a operação"); }
+            else if (Campo.Text == "") { }
+            else { CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " "; }
         }
 
-        private void button14_Click(object sender, EventArgs e)//x
+        private void Sub(object sender, EventArgs e)
         {
-            if (Campo.Text != "")
+            if (Campo.Text != "" && CampoCima.Text != "")
             {
                 numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                label1.Text = "x";
-                operacao = "mult";
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
                 Campo.Text = "";
             }
-            else { MessageBox.Show("Digite um valor para efetuar a operação"); }
-        }
-
-        private void button15_Click(object sender, EventArgs e)//÷
-        {
+            operador = "-";
             if (Campo.Text != "")
             {
                 numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                label1.Text = "÷";
-                operacao = "div";
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
                 Campo.Text = "";
             }
-            else { MessageBox.Show("Digite um valor para efetuar a operação"); }
+            else if (Campo.Text == "") { }
+            else { CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " "; }
         }
 
-        private void button18_Click(object sender, EventArgs e)//=
+        private void Mult(object sender, EventArgs e)
         {
+            if (Campo.Text != "" && CampoCima.Text != "")
+            {
+                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
+                Campo.Text = "";
+            }
+            operador = "x";
             if (Campo.Text != "")
             {
                 numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                Campo.Text = Operação(numeros, operacao).ToString();
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
+                Campo.Text = "";
+            }
+            else if (Campo.Text == "") { }
+            else { CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " "; }
+        }
+
+        private void Div(object sender, EventArgs e)
+        {
+            if (Campo.Text != "" && CampoCima.Text != "")
+            {
+                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
+                Campo.Text = "";
+            }
+            operador = "÷";
+            if (Campo.Text != "")
+            {
+                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
+                CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " ";
+                Campo.Text = "";
+            }
+            else if (Campo.Text == "") { }
+            else { CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " "; }
+        }
+
+        private void Igual(object sender, EventArgs e)
+        {
+            if (Campo.Text != "" && numeros.Count > 0)
+            {
+                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
+                CampoCima.Text = numeros[0].ToString() + " " + operador + " " + numeros[1].ToString() + " " + "=";
+                Campo.Text = Operação(numeros, operador).ToString();
+
                 numeros.Clear();
-                label1.Text = "=";
             }
-            else { MessageBox.Show("Digite um valor para efetuar a operação"); }
+            else if (numeros.Count == 0) { }
+            else { CampoCima.Text = Operação(numeros, operador).ToString() + " " + operador + " " + "="; }
         }
 
-        private void button13_Click(object sender, EventArgs e) { Campo.Text += "0"; Operação(numeros, operacao); }
-        private void button1_Click(object sender, EventArgs e) => Campo.Text += "1";
-        private void button2_Click(object sender, EventArgs e) => Campo.Text += "2";
-        private void button3_Click(object sender, EventArgs e) => Campo.Text += "3";
-        private void button4_Click(object sender, EventArgs e) => Campo.Text += "4";
-        private void button5_Click(object sender, EventArgs e) => Campo.Text += "5";
-        private void button6_Click(object sender, EventArgs e) => Campo.Text += "6";
-        private void button7_Click(object sender, EventArgs e) => Campo.Text += "7";
-        private void button8_Click(object sender, EventArgs e) => Campo.Text += "8";
-        private void button9_Click(object sender, EventArgs e) => Campo.Text += "9";
-        private void button10_Click(object sender, EventArgs e) => Campo.Text += ".";
+        private void Button0(object sender, EventArgs e) => Campo.Text += "0";
+        private void Button1(object sender, EventArgs e) => Campo.Text += "1";
+        private void Button2(object sender, EventArgs e) => Campo.Text += "2";
+        private void Button3(object sender, EventArgs e) => Campo.Text += "3";
+        private void Button4(object sender, EventArgs e) => Campo.Text += "4";
+        private void Button5(object sender, EventArgs e) => Campo.Text += "5";
+        private void Button6(object sender, EventArgs e) => Campo.Text += "6";
+        private void Button7(object sender, EventArgs e) => Campo.Text += "7";
+        private void Button8(object sender, EventArgs e) => Campo.Text += "8";
+        private void Button9(object sender, EventArgs e) => Campo.Text += "9";
+        private void ButtonPoint(object sender, EventArgs e) => Campo.Text += ".";
 
-        private void button16_Click(object sender, EventArgs e)
-        {//C
+        private void Clear(object sender, EventArgs e)
+        {
             Campo.Text = "";
-            label1.Text = "";
-            operacao = "";
+            CampoCima.Text = "";
+            operador = "";
             numeros.Clear();
-            entrada = "";
         }
 
-        private void button17_Click(object sender, EventArgs e)
-        {//CE
+        private void ClearEntry(object sender, EventArgs e)
+        {
             Campo.Text = "";
         }
-
     }
 }

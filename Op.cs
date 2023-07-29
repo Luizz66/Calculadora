@@ -1,38 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculadora
 {
-    internal class Op
+    internal static class Op
     {
         public static decimal Operação(List<decimal> nums, string op)
-        {         
+        {
             decimal resultado = 0;
-            if (op == "soma")
+            if (nums.Count > 0)
             {
-                return nums.Aggregate((a, b) => a + b);                          
+                if (op == "+")
+                {
+                    resultado = nums.Aggregate((a, b) => a + b);
+                    nums.Clear();
+                    nums.Add(resultado);
+                }
+                else if (op == "-")
+                {
+                    resultado = nums.Aggregate((a, b) => a - b);
+                    nums.Clear();
+                    nums.Add(resultado);
+                }
+                else if (op == "x")
+                {
+                    resultado = nums.Aggregate((a, b) => a * b);
+                    nums.Clear();
+                    nums.Add(resultado);
+                }
+                else if (op == "÷")
+                {
+                    resultado = nums.Aggregate((a, b) => a / b);
+                    nums.Clear();
+                    nums.Add(resultado);
+                }
+                else
+                {
+                    return nums.FirstOrDefault();
+                }
             }
-            else if (op == "sub")
-            {
-                return nums.Aggregate((a, b) => a - b);               
-            }
-            else if (op == "mult")
-            {
-                return nums.Aggregate((a, b) => a * b);              
-            }
-            else if (op == "div")
-            {
-                return nums.Aggregate((a, b) => a / b);               
-            }
-            else
-            {
-                return 0;              
-            }
+            return nums[0];
         }
 
-        
     }
 }
