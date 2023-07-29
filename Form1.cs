@@ -93,7 +93,7 @@ namespace Calculadora
             else { MessageBox.Show("Digite um valor para efetuar a operação"); }
         }
 
-        private void button13_Click(object sender, EventArgs e) => Campo.Text += "0";
+        private void button13_Click(object sender, EventArgs e) { Campo.Text += "0"; Operação(numeros, operacao); }
         private void button1_Click(object sender, EventArgs e) => Campo.Text += "1";
         private void button2_Click(object sender, EventArgs e) => Campo.Text += "2";
         private void button3_Click(object sender, EventArgs e) => Campo.Text += "3";
