@@ -7,32 +7,32 @@ namespace Calculadora
     {
         public static decimal Operate(List<decimal> nums, string op)
         {
-            decimal resultado = 0;
+            decimal result = 0;
             if (nums.Count > 0)
             {
                 if (op == "+")
                 {
-                    resultado = nums.Aggregate((a, b) => a + b);
+                    result = nums.Aggregate((a, b) => a + b);
                     nums.Clear();
-                    nums.Add(resultado);
+                    nums.Add(result);
                 }
                 else if (op == "-")
                 {
-                    resultado = nums.Aggregate((a, b) => a - b);
+                    result = nums.Aggregate((a, b) => a - b);
                     nums.Clear();
-                    nums.Add(resultado);
+                    nums.Add(result);
                 }
                 else if (op == "x")
                 {
-                    resultado = nums.Aggregate((a, b) => a * b);
+                    result = nums.Aggregate((a, b) => a * b);
                     nums.Clear();
-                    nums.Add(resultado);
+                    nums.Add(result);
                 }
                 else if (op == "÷")
                 {
-                    resultado = nums.Aggregate((a, b) => a / b);
+                    result = nums.Aggregate((a, b) => a / b);
                     nums.Clear();
-                    nums.Add(resultado);
+                    nums.Add(result);
                 }
                 else
                 {
