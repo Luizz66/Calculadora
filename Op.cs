@@ -5,7 +5,7 @@ namespace Calculadora
 {
     internal static class Op
     {
-        public static decimal Operação(List<decimal> nums, string op)
+        public static decimal Operate(List<decimal> nums, string op)
         {
             decimal resultado = 0;
             if (nums.Count > 0)

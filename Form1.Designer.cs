@@ -201,7 +201,7 @@
             button12.TabIndex = 12;
             button12.Text = "+";
             button12.UseVisualStyleBackColor = false;
-            button12.Click += Soma;
+            button12.Click += Sum;
             // 
             // button13
             // 
@@ -261,7 +261,7 @@
             button17.TabIndex = 17;
             button17.Text = "CE";
             button17.UseVisualStyleBackColor = false;
-            button17.Click += ClearEntry;          
+            button17.Click += ClearEntry;
             // 
             // button18
             // 
@@ -274,7 +274,7 @@
             button18.TabIndex = 21;
             button18.Text = "=";
             button18.UseVisualStyleBackColor = false;
-            button18.Click += Igual;
+            button18.Click += Equal;
             // 
             // CampoCima
             // 
@@ -293,7 +293,6 @@
             ClientSize = new System.Drawing.Size(370, 288);
             Controls.Add(CampoCima);
             Controls.Add(button18);
-            Controls.Add(LabelOp);
             Controls.Add(button17);
             Controls.Add(button16);
             Controls.Add(button15);
