@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Calculadora
 {
     internal static class Op
-    {
+    {       
         public static decimal Operate(List<decimal> nums, string op)
         {
             decimal result = 0;

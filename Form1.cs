@@ -21,81 +21,64 @@ namespace Calculadora
         private string operador;
         private readonly List<decimal> numeros = new();
 
-
         private void Sum(object sender, EventArgs e)
         {
             if (Campo.Text != "" && CampoCima.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             operador = "+";
             if (Campo.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             else if (Campo.Text == "") { }
-            else { CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " "; }
+            else { CampoCimaOperation(); }
         }
 
         private void Sub(object sender, EventArgs e)
         {
             if (Campo.Text != "" && CampoCima.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             operador = "-";
             if (Campo.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             else if (Campo.Text == "") { }
-            else { CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " "; }
+            else { CampoCimaOperation(); }
         }
 
         private void Mult(object sender, EventArgs e)
         {
             if (Campo.Text != "" && CampoCima.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             operador = "x";
             if (Campo.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             else if (Campo.Text == "") { }
-            else { CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " "; }
+            else { CampoCimaOperation(); }
         }
 
         private void Div(object sender, EventArgs e)
         {
             if (Campo.Text != "" && CampoCima.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             operador = "÷";
             if (Campo.Text != "")
             {
-                numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
-                CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
-                Campo.Text = "";
+                Calculate();
             }
             else if (Campo.Text == "") { }
-            else { CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " "; }
+            else { CampoCimaOperation(); }
         }
 
         private void Equal(object sender, EventArgs e)
@@ -109,7 +92,7 @@ namespace Calculadora
                 numeros.Clear();
             }
             else if (numeros.Count == 0) { }
-            else { CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " " + "="; }
+            else { CampoCimaOperation("="); }
         }
 
         private void Button0(object sender, EventArgs e) => Campo.Text += "0";
@@ -123,18 +106,28 @@ namespace Calculadora
         private void Button8(object sender, EventArgs e) => Campo.Text += "8";
         private void Button9(object sender, EventArgs e) => Campo.Text += "9";
         private void ButtonPoint(object sender, EventArgs e) => Campo.Text += ".";
-
+        private void ClearEntry(object sender, EventArgs e) => Campo.Text = "";
         private void Clear(object sender, EventArgs e)
         {
             Campo.Text = "";
             CampoCima.Text = "";
             operador = "";
             numeros.Clear();
+        }       
+
+        public string CampoCimaOperation(string input = "")
+        {
+            string operation = CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
+            operation = input == "=" ? operation + "=" : operation;
+            return operation;
         }
 
-        private void ClearEntry(object sender, EventArgs e)
+        public void Calculate()
         {
+            numeros.Add(decimal.Parse(Campo.Text, CultureInfo.InvariantCulture));
+            CampoCima.Text = Operate(numeros, operador).ToString() + " " + operador + " ";
             Campo.Text = "";
         }
+
     }
 }
