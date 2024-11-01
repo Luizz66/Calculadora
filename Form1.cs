@@ -14,80 +14,22 @@ namespace Calculadora
 
         private void Sum_Click(object sender, EventArgs e)
         {
-            if (MainField.Text != "" && SmallField.Text == "")
-            {
-                op = "+";
-                value = Double.Parse(MainField.Text);
-                SmallField.Text = $"{value}{op}";
-                MainField.Text = "";
-            }
-            if (MainField.Text != "" && SmallField.Text != "")
-            {
-                Operate("+");
-            }
-            if (op == "=")
-            {
-                Operate("+");
-            }
+            Action("+");
         }
 
         private void Sub_Click(object sender, EventArgs e)
         {
-            if (MainField.Text != "" && SmallField.Text == "")
-            {
-                op = "-";
-                value = Double.Parse(MainField.Text);
-                SmallField.Text = $"{value}{op}";
-                MainField.Text = "";
-            }
-            if (MainField.Text != "" && SmallField.Text != "")
-            {
-                Operate("-");
-            }
-            if (op == "=")
-            {
-                Operate("-");
-            }
-
+            Action("-");
         }
 
         private void Mult_Click(object sender, EventArgs e)
         {
-            if (MainField.Text != "" && SmallField.Text == "")
-            {
-                op = "x";
-                value = Double.Parse(MainField.Text);
-                SmallField.Text = $"{value}{op}";
-                MainField.Text = "";
-            }
-            if (MainField.Text != "" && SmallField.Text != "")
-            {
-                Operate("x");
-            }
-            if (op == "=")
-            {
-                Operate("x");
-            }
+            Action("x");
         }
 
         private void Div_Click(object sender, EventArgs e)
         {
-            if (MainField.Text != "" && SmallField.Text == "")
-            {
-                op = "÷";
-                value = Double.Parse(MainField.Text);
-                SmallField.Text = $"{value}{op}";
-                MainField.Text = "";
-            }
-            if (MainField.Text != "" && SmallField.Text != "")
-            {
-                Operate("÷");
-            }
-            if (op == "=")
-            {
-                Operate("÷");
-            }
-
+            Action("÷");
         }
 
         private void Equal_Click(object sender, EventArgs e)
@@ -115,7 +57,7 @@ namespace Calculadora
 
         private void btn9_Click(object sender, EventArgs e) => MainField.Text += "9";
 
-        private void Point_Click(object sender, EventArgs e) => MainField.Text += ".";
+        private void Point_Click(object sender, EventArgs e) => MainField.Text += ",";
 
         private void ClearEntry_Click(object sender, EventArgs e) => MainField.Text = "";
 
@@ -125,6 +67,25 @@ namespace Calculadora
             op = null;
             MainField.Text = "";
             SmallField.Text = "";
+        }
+
+        public void Action(string actionOperattor)
+        {
+            if (MainField.Text != "" && SmallField.Text == "")
+            {
+                op = actionOperattor;
+                value = Double.Parse(MainField.Text);
+                SmallField.Text = $"{value}{op}";
+                MainField.Text = "";
+            }
+            if (MainField.Text != "" && SmallField.Text != "")
+            {
+                Operate(actionOperattor);
+            }
+            if (op == "=")
+            {
+                Operate(actionOperattor);
+            }
         }
 
         public void Operate(string opInput)
@@ -150,7 +111,7 @@ namespace Calculadora
         {
             if (MainField.Text == "" && op != "=")
             {
-                SmallField.Text = $"{Calculate(value.GetValueOrDefault(), value.GetValueOrDefault(), op)}";
+                SmallField.Text = $"={Calculate(value.GetValueOrDefault(), value.GetValueOrDefault(), op)}";
 
             }
             if (MainField.Text == "") { }
@@ -164,7 +125,7 @@ namespace Calculadora
             }
         }
 
-        private double Calculate(double value, double currentValue, string currentOp)
+        private static double Calculate(double value, double currentValue, string currentOp)
         {
             return currentOp switch
             {
